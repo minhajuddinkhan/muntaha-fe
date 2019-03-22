@@ -18,18 +18,26 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div *ngIf="isHadeeth">
-        <button mat-button type="button" (click)="addReference()">
-            <mat-icon>add</mat-icon>
-            Add Reference
-        </button>
+    <div >
+      <mat-form-field class="example-full-width">
+        <mat-label> Emotion </mat-label>
+        <mat-select [formControl]="emotions" multiple>
+          <mat-option [value]="emo" *ngFor="let emo of initEmotions">{{emo.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
+    </div>
+    <div *ngIf="isHadeeth">
+      <button mat-button type="button" (click)="addReference()">
+        <mat-icon>add</mat-icon>
+        Add Reference
+      </button>
       <div formArrayName="references" *ngFor="let ref of references.controls; let i = index">
         <div [formGroupName]="i">
-            <button mat-button type="button" (click)="removeReference(i)">
-                <mat-icon>delete</mat-icon>
-            </button>
-    
+          <button mat-button type="button" (click)="removeReference(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+
           <mat-form-field class="example-full-width">
             <mat-label> Reference </mat-label>
             <mat-select formControlName="name">
@@ -38,9 +46,9 @@
           </mat-form-field>
 
           <mat-form-field class="example-full-width">
-              <input formControlName="refNumber" matInput placeholder="reference number">
-            </mat-form-field>
-      
+            <input formControlName="refNumber" matInput placeholder="reference number">
+          </mat-form-field>
+
 
         </div>
       </div>
