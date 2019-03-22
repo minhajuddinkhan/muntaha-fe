@@ -1,0 +1,51 @@
+<div fxLayout="colum" fxLayoutAlign="center center">
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit(entryForm)" class="example-form" novalidate>
+    <div>
+      <mat-form-field class="example-full-width">
+        <input formControlName="arabic" matInput placeholder="Dua - Arabic">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <textarea formControlName="translation" matInput placeholder="Translation"></textarea>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <mat-label>Origin</mat-label>
+        <mat-select formControlName="origin" (selectionChange)="onOriginSelect()" [(value)]="selectedOrigin">
+          <mat-option value="{{e.type}}" *ngFor="let e of origins">{{e.type}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="isHadeeth">
+        <button mat-button type="button" (click)="addReference()">
+            <mat-icon>add</mat-icon>
+            Add Reference
+        </button>
+
+      <div formArrayName="references" *ngFor="let ref of references.controls; let i = index">
+        <div [formGroupName]="i">
+            <button mat-button type="button" (click)="removeReference(i)">
+                <mat-icon>delete</mat-icon>
+            </button>
+    
+          <mat-form-field class="example-full-width">
+            <mat-label> Reference </mat-label>
+            <mat-select formControlName="name">
+              <mat-option value="{{e.name}}" *ngFor="let e of initReferences">{{e.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+              <input formControlName="refNumber" matInput placeholder="reference number">
+            </mat-form-field>
+      
+
+        </div>
+      </div>
+    </div>
+
+    <button [disabled]="!entryForm.valid" mat-button type="submit"> SUBMIT</button>
+  </form>
+</div>
